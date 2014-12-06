@@ -23,7 +23,7 @@ $ python serial/serial_log.py -l
 
 ```
 
-# Requirement
+#### Requirement
 
 The only package that you need is pyserial (http://pyserial.sourceforge.net/), also avaible via pip.
 
