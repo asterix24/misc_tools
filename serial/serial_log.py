@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -14,8 +16,6 @@
 #
 # Copyright 2014 Daniele Basile <asterix24@gmail.com>
 #
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import serial
 import serial.tools.list_ports
@@ -46,9 +46,13 @@ def std_print(line):
     sys.stdout.write(line)
     sys.stdout.flush()
 
-if options.port_list:
+def port_list():
+    std_print("Avaible ports are:\n")
     for i in serial.tools.list_ports.comports():
         std_print("%10s %20s %s\n" % (i[0], i[1], i[2]))
+
+if options.port_list:
+    port_list()
     sys.exit(0)
 
 std_print("Open: %s" % options.port_name)
@@ -85,10 +89,25 @@ try:
             o.write(fmt_line(line))
             o.flush()
 
-
 except KeyboardInterrupt:
     std_print('Close serial')
     s.flush()
     s.close()
     o.close()
+
+except OSError, e:
+    import errno
+    print
+    print
+    if e.errno == errno.ENOENT:
+        print e
+        print
+        port_list()
+
+except serial.serialutil.SerialException, e:
+    print
+    print "Unable to open serial port."
+    print
+    print e
+
 
