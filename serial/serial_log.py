@@ -66,13 +66,12 @@ try:
         stopbits=1,
         xonxoff=0,              # enable software flow control
         rtscts=0,               # disable RTS/CTS flow control
-        timeout=5               # set a timeout value, None for waiting forever
+        timeout=0               # set a timeout value, None for waiting forever
         )
 
     s.setDTR(0) #disabilito reset
     s.setRTS(1) #disabilito boot0
 
-    
     file = os.path.join(options.log_dir, options.log_filename)
     m = 'w'
     if options.file_append:
